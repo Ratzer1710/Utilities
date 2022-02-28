@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/scss/style.css">
+    <link rel="stylesheet" href="assets/fonts/icon_style.css">
+    <script src="assets/js/playlists.js"></script>
+    <title>Utilities</title>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="icon icon-home3"></a>
+        <div id="weather" class="weather">
+            <script id="weather_script" src="https://apps.elfsight.com/p/platform.js" defer></script>
+            <div id="weather_style" class="elfsight-app-c2924238-028b-4ca5-9b5c-1f3dc3c446ed"></div>
+        </div>
+        <div id="weather_dark" class="hidden">
+            <script id="weather_script" src="https://apps.elfsight.com/p/platform.js" defer></script>
+            <div id="weather_style" class="elfsight-app-be9eef99-1e9e-43d0-ba88-e3a86e0a7017"></div>
+        </div>
+        <div class="time">
+            <span onclick="timerShow()" class="icon icon-alarm"></span>
+            <div class="timer" id="timer">
+                <audio loop src="assets/music/timer_alarm.mp3" id="timer_audio"></audio>
+                <h1>TIMER <span onclick="timerClose()" class="close icon icon-cross"></span></h1>
+                <span onclick="timerSetShow()" id="timer_set">Set Timer</span>
+                <p id="timer_time">00:00:00</p>
+                <span onclick="timerReset()" id="timer_reset" class="timer_ctrl icon icon-undo"></span>
+                <span onclick="timerPlayPause()" id="timer_play_pause" class="stopped timer_ctrl icon icon-play3"></span>
+                <span onclick="timerDestroy()" id="timer_destroy" class="timer_ctrl icon icon-bin"></span>                
+            </div>
+            <span onclick="stopwatchShow()" class="icon icon-stopwatch"></span>
+            <div class="stopwatch" id="stopwatch">
+                <h1>STOPWATCH <span onclick="stopwatchClose()" class="close icon icon-cross"></span></h1>
+                <p id="stopwatch_time">00:00:00</p>
+                <span onclick="stopwatchPlayPause()" id="stopwatch_play-pause" class="stopwatch_ctrl stopped icon icon-play3"></span>
+                <span onclick="stopwatchReset()" id="stopwatch_reset" class="stopwatch_ctrl icon icon-stop2"></span>
+            </div>
+            <div class="clock">
+                <span class="icon icon-clock"></span>
+                <p id="current_time"></p>
+                <p>-</p>
+                <p id="date"></p>
+            </div>
+        </div>
+        <div class="timer_set_form" id="timer_set_form">
+            <form action="">
+                <div id="number_input">
+                    <input required type="number" id="timer_hs" min="0" max="99" placeholder="H">
+                    <input required type="number" id="timer_mins" min="0" max="59" placeholder="M">
+                    <input required type="number" id="timer_secs" min="0" max="59" placeholder="S">
+                </div>
+                <input onclick="timerSet()" type="button" value="Set Timer">
+            </form>
+        </div>
+        <div class="dark_mode" id="dark_mode_switch">
+            <input type="checkbox" class="checkbox" id="chk">
+            <label class="label" for="chk">
+                <span id="sun" class="icon icon-sun-o active"></span>
+                <span id="moon" class="icon icon-moon"></span>
+                <div class="ball"></div>
+            </label>
+        </div>
+    </header>
+    
+    <main>
+        <div class="main_header">
+            <div id="docs_header" class="docs_header">
+                <span onclick="docUndo()" id="doc_undo" class="icon icon-undo2"></span>
+                <span onclick="docRedo()" id="doc_redo" class="icon icon-redo2"></span>
+                <p>|</p>
+                <span onclick="docColorPickerShow()" id="txt_font" class="icon icon-text-color"></span> 
+                <div class="doc_color_picker" id="doc_color_picker">
+                    <table>
+                        <tr>
+                            <td onclick="docPickColor('black')" style="background: black;" class="doc_cp" id="doc_cp_black"></td>
+                            <td onclick="docPickColor('grey')" style="background: grey;" class="doc_cp" id="doc_cp_grey"></td>
+                            <td onclick="docPickColor('purple')" style="background: purple;" class="doc_cp" id="doc_cp_purple"></td>
+                            <td onclick="docPickColor('red')" style="background: red;" class="doc_cp" id="doc_cp_red"></td> 
+                            <td onclick="docPickColor('green')" style="background: green;" class="doc_cp" id="doc_cp_green"></td>                                                     
+                        </tr>
+                        <tr>
+                            <td onclick="docPickColor('white')" style="background: white;" class="doc_cp" id="doc_cp_white"></td>
+                            <td onclick="docPickColor('blue')" style="background: blue;" class="doc_cp" id="doc_cp_blue"></td>
+                            <td onclick="docPickColor('pink')" style="background: pink;" class="doc_cp" id="doc_cp_pink"></td>
+                            <td onclick="docPickColor('orange')" style="background: orange;" class="doc_cp" id="doc_cp_orange"></td>
+                            <td onclick="docPickColor('yellow')" style="background: yellow;" class="doc_cp" id="doc_cp_yellow"></td> 
+                        </tr>
+                    </table>
+                </div>
+                <div class="font_size">
+                    <span onclick="docFontSize('increse')" id="font_sizeP" class="icon icon-plus"></span>
+                    <input type="number" max="99" min="1" id="font_size" value="20">
+                    <span onclick="docFontSize('decrese')" id="font_sizeM" class="icon icon-minus"></span>
+                </div>
+                <span onclick="docBold()" id="txt_bold" class="icon icon-bold"></span>
+                <span onclick="docItal()" id="txt_ital" class="icon icon-italic"></span>
+                <span onclick="docUnderline()" id="txt_underline" class="icon icon-underline"></span>
+                <p>|</p>
+                <span onclick="docAlignL()" id="align_left" class="active icon icon-paragraph-left"></span>
+                <span onclick="docAlignC()" id="align_center" class="icon icon-paragraph-center"></span>
+                <span onclick="docAlignR()" id="align_right" class="icon icon-paragraph-right"></span>
+                <span onclick="docAlignJ()" id="align_justify" class="icon icon-paragraph-justify"></span>
+                <p>|</p>
+                <span onclick="docIndent()" id="indentP" class="icon icon-indent-increase"></span>
+            </div>
+            <div id="paint_header" class="paint_header hidden">
+
+            </div>
+            <div id="main_file" class="main_file">
+                <span onclick="winReload()" id="bin_main" class="icon icon-bin"></span>
+                <span onclick="fileSaveShow()" id="save_main" class="icon icon-floppy-disk"></span>
+                <span onclick="showDocs()" id="docs_activate" class="active icon icon-file-text2"></span>
+                <span onclick="showPaint()" id="paint_activate" class="icon icon-paint"></span>
+            </div>
+        </div>
+        <div class="main_docs" id="main_docs">
+            <textarea id="main_txt" class="main_txt"></textarea>
+        </div>
+        <div class="main_paint hidden" id="main_paint">
+            
+        </div>
+    </main>
+    <span onclick="showCalc()" id="calculator_show" class="icon icon-calculator"></span>
+    <div class="calculator" id="calculator">
+        <div class="calc_display">
+            <span onclick="calcClose()" class="calc_close close icon icon-cross"></span>
+            <input type="text" readonly id="current_display" placeholder="0">
+            <p id="total_display">0</p>
+        </div>
+        <div class="calc_buttons"> 
+            <div class="calc_row r1">
+                <button onclick="calc_Clear()" class="calc_btn operator" id="calc_clearE">CE</button>
+                <button onclick="calc_Clear()" class="calc_btn operator" id="calc_clear">C</button>
+                <button onclick="calc_Delete()" class="calc_btn operator icon icon-Backspace-png-icon" id="calc_del" style="font-size: 20px;"></button>
+                <button onclick="Operate('÷')" class="calc_btn operator" id="calc_division">÷</button> 
+            </div>
+            <div class="calc_row r2">
+                <button onclick="pressNum(7)" class="calc_btn number" id="calc_number7">7</button>
+                <button onclick="pressNum(8)" class="calc_btn number" id="calc_number8">8</button>
+                <button onclick="pressNum(9)" class="calc_btn number" id="calc_number9">9</button>
+                <button onclick="Operate('×')" class="calc_btn operator" id="calc_multiplication">×</button>
+            </div>
+            <div class="calc_row r3">
+                <button onclick="pressNum(4)" class="calc_btn number" id="calc_number4">4</button>
+                <button onclick="pressNum(5)" class="calc_btn number" id="calc_number5">5</button>
+                <button onclick="pressNum(6)" class="calc_btn number" id="calc_number6">6</button>
+                <button onclick="Operate('-')" class="calc_btn operator" id="calc_substraction">-</button>
+            </div>
+            <div class="calc_row r4">
+                <button onclick="pressNum(1)" class="calc_btn number" id="calc_number1">1</button>
+                <button onclick="pressNum(2)" class="calc_btn number" id="calc_number2">2</button>
+                <button onclick="pressNum(3)" class="calc_btn number" id="calc_number3">3</button>
+                <button onclick="Operate('+')" class="calc_btn operator" id="calc_add">+</button>
+            </div>
+            <div class="calc_row r5">
+                <button onclick="plusMinus()" class="calc_btn number" id="calc_plus-minus">±</button>
+                <button onclick="pressNum(0)" class="calc_btn number" id="calc_number0">0</button>
+                <button onclick="Decimal()" class="calc_btn number" id="calc_number_coma">,</button>
+                <button onclick="printCalcTotal()" class="calc_btn operator" id="calc_equal">=</button>
+            </div>
+        </div>       
+    </div>
+    <span onclick="showSpotify()" id="spotify_show" class="icon icon-music"></span>
+    <div class="music_player hidden_music" id="spotify">
+        <div class="volume_slider" id="volume_slider">
+            <input id="volume_range" type="range" min="0" max="100" value="50">
+            <p id="volume_value">50</p>
+        </div>
+        <div id="player">
+            <div class="song_info">
+                <span onclick="useModal()" id="playlist_select" class="icon icon-playlist"></span>
+                <p id="playlist"></p>
+                <p id="name"></p>
+                <p id="name_tag"></p>
+                <p id="duration"></p>
+            </div>    
+            <audio id="main_audio" src="assets/music/lofi/within.mp3"></audio>
+            <div class="controls">
+                <span onclick="volumeSlider()" id="volume" class="icon icon-volume-medium"></span>
+                <span onclick="playPrevious()" id="previous" class="icon icon-first"></span>
+                <span onclick="playPause()" id="play-pause_btn" class="icon icon-play3"></span>
+                <span onclick="playNext()" id="next" class="icon icon-last"></span>
+                <span onclick="playStyle()" id="play_style" class="icon icon-shuffle"></span>
+            </div>
+        </div>
+        <div class="playlists" id="modal">
+            <div class="header">
+                <span id="playlist_icon" class="icon icon-playlist"></span>
+                <span style="margin-left: 5px;">Playlists</span>
+                <span onclick="useModal()" class="close icon icon-cross"></span>
+            </div>
+            <div id="playlists">
+                <span onclick="playlist_picker('Lofi')" id="lofi" class="active"><p>Lofi</p></span>
+                <span onclick="playlist_picker('Hip Hop')" id="hiphop"><p>Hip Hop</p></span>
+                <span onclick="playlist_picker('Nacional')" id="nacional"><p>Rock Nacional</p></span>
+                <span onclick="playlist_picker('Rock')" id="rock"><p>Rock</p></span>
+            </div>
+        </div>
+    </div>
+    <div class="file_save_win" id="file_save_win">
+        <div class="save_file" id="save_file">
+            <span onclick="fileSaveClose()" class="close icon icon-cross"></span>
+            <h1>Save As</h1>
+            <input name="file_name" type="text" placeholder="File Name" id="save_fileName">
+            <button onclick="saveFile()">Save</button>
+        </div>
+    </div>
+    <script src="assets/js/calc.js"></script>
+    <script src="assets/js/time.js"></script>
+    <script src="assets/js/music_player.js"></script>
+    <script src="assets/js/docs.js"></script>
+    <script>
+        var light = document.getElementById("sun");
+        var dark = document.getElementById("moon");
+        const chk = document.getElementById("chk");
+        chk.addEventListener('change', () => {
+            document.body.classList.toggle('dark')
+            document.getElementById("weather").classList.toggle('hidden'); 
+            document.getElementById("weather").classList.toggle('weather');
+            document.getElementById("weather_dark").classList.toggle('hidden'); 
+            document.getElementById("weather_dark").classList.toggle('weather');      
+            docPickColor('white');   
+        })
+        function showPaint() {
+            document.getElementById("paint_activate").classList.add("active");
+            document.getElementById("docs_activate").classList.remove("active");
+            document.getElementById("main_docs").classList.add("hidden");
+            document.getElementById("main_paint").classList.remove("hidden");
+            document.getElementById("main_docs").classList.add("hidden");
+            document.getElementById("main_paint").classList.remove("hidden");
+        }
+        function showDocs() {
+            document.getElementById("paint_activate").classList.remove("active");
+            document.getElementById("docs_activate").classList.add("active");
+            document.getElementById("main_docs").classList.remove("hidden");
+            document.getElementById("main_paint").classList.add("hidden");
+            document.getElementById("docs_header").classList.remove("hidden");
+            document.getElementById("paint_header").classList.add("hidden");
+        }
+        function winReload() {
+            window.location.replace('index.html');
+        }
+    </script>
+</body>
+</html>
